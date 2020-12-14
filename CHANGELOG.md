@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2020-12-xx
+- Breaking: Enum's which don't specify an `id` attribute now default to their discriminant value
+instead of being treated as a catch-all
+- Breaking: Removed `BitSize` in favor of a new enum `Size` with two variants, `Bits` and `Bytes`
+- Breaking: Added namespacing to internal variables. `deku::` is used to access internal variables in token fields.
+For example, `reader = "my_reader(deku::rest, deku::bit_offset)"` or `writer = "my_writer(deku::output)"`
+- Added access to read offset via bit_offset and byte_offset internal variables.
+These are accessed via `deku::` namespace, `deku::bit_offset` and `deku::byte_offset`.
+- Added `skip_bits` and `skip_bytes` attributes, this allows to skip over data while reading
+- Added `#[deku(temp)]` attribute, enabled via `deku_derive` proc-macro attribute.
+- Added DekuRead+DekuWrite implementations for CString
+- Added DekuRead+DekuWrite implementations for NonZeroT types
+This allows reading/use of a field without it being stored in the container.
+- Internal code/test refactoring
+- Code improvements ([@myrrlyn](https://github.com/myrrlyn), [@wcampbell0x2a](https://github.com/wcampbell0x2a))
+
+## [0.9.2] - 2020-12-14
+- Patch release to fix semver break in darling,
+[this has since been fixed](https://github.com/TedDriggs/darling/issues/107)
+
 ## [0.9.1] - 2020-10-31
 - Changed minimum bitvec version to 0.19.4 to have desired `offset_from`
 functionality (https://github.com/myrrlyn/bitvec/issues/86). This was missed in
@@ -74,7 +94,11 @@ Community:
 - Added `release.toml`
 - Added `CHANGELOG.md` to track changes
 
-[Unreleased]: https://github.com/sharksforarms/deku/compare/deku-v0.9.1...HEAD
+[Unreleased]: https://github.com/sharksforarms/deku/compare/deku-v0.10.0...HEAD
+
+[0.10.0]: https://github.com/sharksforarms/deku/compare/deku-v0.9.2...deku-v0.10.0
+
+[0.9.2]: https://github.com/sharksforarms/deku/compare/deku-v0.9.1...deku-v0.9.2
 
 [0.9.1]: https://github.com/sharksforarms/deku/compare/deku-v0.9.0...deku-v0.9.1
 
